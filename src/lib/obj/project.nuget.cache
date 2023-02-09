@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3Bpbr79lszkJ4UGhiDobHNNhxcH9BmlAiaP9UpHvntTZt91ICxCAE/0AitCojl2KFhbJgKoZUMRWctEIRUTt8w==",
+  "dgSpecHash": "57GH431QlF4NwGlnWizaUfCD0NW9NSSQsQo9GIAxMM2K2aaN5x7WlKsh1Ot4XIyDeT/F+oD2Y75O59sR5Zu6Eg==",
   "success": true,
-  "projectFilePath": "/home/daniil/work/test/qonic_08_02_2023/intersection_of_triangles/src/lib/lib.csproj",
+  "projectFilePath": "/home/user/daniil/test/src/lib/lib.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

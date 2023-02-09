@@ -22,24 +22,43 @@ public class Vector {
         return $"{x}; {y}; {z}";
     }
     public Vector(Vector a) : this(a.x, a.y, a.z) {}
+
+    public double scalarProd(Vector vec) {
+        return x*vec.x + y*vec.y + z*vec.z;
+    }
+
+    public double norma() {
+        return Math.Sqrt(this.scalarProd(this));
+    }
+
+    public double cos(Vector vec) {
+        return this.scalarProd(vec)/(this.norma()*vec.norma());
+    }
+    
     public static Vector operator + (Vector a, Vector b) {
         return new Vector(a.x + b.x, a.y + b.y, a.z + b.z);
     }
+    
     public static Vector operator - (Vector a, Vector b) {
         return new Vector(a.x - b.x, a.y - b.y, a.z - b.z);
     }
+    
     public static Vector operator * (double k, Vector a) {
         return new Vector(a.x*k, a.y*k, a.z*k);
     }
+    
     public static Vector operator * (Vector a, double k) {
         return k*a;
     }
+    
     public static Vector operator / (Vector a, double k) {
-        return new Vector(a.x/k, a.y/k, a.z/k);
+        return a*(1/k);
     }
+    
     public static bool operator == (Vector a, Vector b) {
         return ((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
     }
+    
     public static bool operator != (Vector a, Vector b) {
         return !(a == b);
     }

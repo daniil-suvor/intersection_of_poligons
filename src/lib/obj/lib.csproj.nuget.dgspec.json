@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/daniil/work/test/qonic_08_02_2023/intersection_of_triangles/src/lib/lib.csproj": {}
+    "/home/user/daniil/test/src/lib/lib.csproj": {}
   },
   "projects": {
-    "/home/daniil/work/test/qonic_08_02_2023/intersection_of_triangles/src/lib/lib.csproj": {
+    "/home/user/daniil/test/src/lib/lib.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/daniil/work/test/qonic_08_02_2023/intersection_of_triangles/src/lib/lib.csproj",
+        "projectUniqueName": "/home/user/daniil/test/src/lib/lib.csproj",
         "projectName": "lib",
-        "projectPath": "/home/daniil/work/test/qonic_08_02_2023/intersection_of_triangles/src/lib/lib.csproj",
-        "packagesPath": "/home/daniil/.nuget/packages/",
-        "outputPath": "/home/daniil/work/test/qonic_08_02_2023/intersection_of_triangles/src/lib/obj/",
+        "projectPath": "/home/user/daniil/test/src/lib/lib.csproj",
+        "packagesPath": "/home/user/.nuget/packages/",
+        "outputPath": "/home/user/daniil/test/src/lib/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/daniil/.nuget/NuGet/NuGet.Config"
+          "/home/user/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
