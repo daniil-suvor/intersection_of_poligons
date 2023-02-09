@@ -27,6 +27,10 @@ public class Vector {
         return x*vec.x + y*vec.y + z*vec.z;
     }
 
+    public Vector vectorProd(Vector vec) {
+        return new Vector(y*vec.z - z*vec.y, -(x*vec.z - z*vec.x), x*vec.y - y*vec.x);
+    }
+
     public double norma() {
         return Math.Sqrt(this.scalarProd(this));
     }
