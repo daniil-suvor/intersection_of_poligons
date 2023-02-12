@@ -7,8 +7,8 @@ public class Plane {
         Vector vectorCB = pointC  - pointA;
         normalVector = vectorAB.vectorProd(vectorCB);
         basisPoint = pointA;
-        lineAB = new Line(pointA, pointB);
-        lineAC = new Line(pointA, pointC);
+        lineAB = new Line(vectorAB, pointB);
+        lineAC = new Line(vectorCB, pointC);
     }
     public bool correctPlane() {
         return normalVector != new Vector();
@@ -20,7 +20,7 @@ public class Plane {
 
     public bool pointOnPlane(Vector point) {
         Vector checkVector = point - basisPoint;
-        return normalVector.scalarProd(checkVector) == 0;
+        return Math.Abs(normalVector.scalarProd(checkVector)) < Constants.compareEpsilon;
     }
 
     public bool checkLineIntersected(Line checkLine, out Vector intersectPoint) {
@@ -29,7 +29,7 @@ public class Plane {
 
         Vector subBasisPoint = lineBasisPoint - basisPoint;
 
-        if (normalVector.scalarProd(lineGuideVector) == 0) {
+        if (Math.Abs(normalVector.scalarProd(lineGuideVector)) < Constants.compareEpsilon) {
             intersectPoint = new Vector();
             return false;
         }

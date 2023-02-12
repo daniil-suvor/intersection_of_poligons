@@ -34,9 +34,9 @@ public class Line {
         }
         double t = (b0 - a01*s)/a00;
 
-        intersectPoint = this.getPoint(t);
+        intersectPoint = checkLine.getPoint(s);
         
-        return intersectPoint == checkLine.getPoint(s);
+        return intersectPoint == this.getPoint(t);
     }
 
     public Vector GuideVector {
