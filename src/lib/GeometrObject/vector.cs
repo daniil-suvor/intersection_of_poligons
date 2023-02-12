@@ -46,6 +46,10 @@ public class Vector {
     public static Vector operator - (Vector a, Vector b) {
         return new Vector(a.x - b.x, a.y - b.y, a.z - b.z);
     }
+
+    public static Vector operator - (Vector a) {
+        return new Vector() - a;
+    }
     
     public static Vector operator * (double k, Vector a) {
         return new Vector(a.x*k, a.y*k, a.z*k);
