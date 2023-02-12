@@ -1,4 +1,9 @@
 namespace vector;
+
+static class Constants
+{
+    public const double compareEpsilon = 1E-15;
+}
 public class Vector {
     public Vector() : this(0, 0, 0) {}
     public Vector(double x, double y, double z) : this(0, 0, 0, x, y, z) {}
@@ -64,7 +69,9 @@ public class Vector {
     }
     
     public static bool operator == (Vector a, Vector b) {
-        return ((a.x == b.x) && (a.y == b.y) && (a.z == b.z));
+        return ((Math.Abs(a.x - b.x) < Constants.compareEpsilon) && 
+                (Math.Abs(a.y - b.y) < Constants.compareEpsilon) && 
+                (Math.Abs(a.z - b.z) < Constants.compareEpsilon));
     }
     
     public static bool operator != (Vector a, Vector b) {

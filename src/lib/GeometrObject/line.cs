@@ -26,17 +26,17 @@ public class Line {
         double a11 = (-checkLine.guideVector).scalarProd(-checkLine.guideVector);
         double b1 = subBasisPoint.scalarProd(-checkLine.guideVector);
 
-        double s = 1;
-        if (a00*a11 - a10*a01 != 0) {
+        double s;
+        if (Math.Abs(a00*a11 - a10*a01) < Constants.compareEpsilon) {
+            s = 1;
+        } else {
             s = (b1*a00 - a10*b0)/(a11*a00 - a10*a01);
         }
-        
         double t = (b0 - a01*s)/a00;
 
         intersectPoint = this.getPoint(t);
         
         return intersectPoint == checkLine.getPoint(s);
-
     }
 
     public Vector GuideVector {
