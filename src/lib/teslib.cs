@@ -6,6 +6,7 @@ public class TestLib {
         if (coordinates.Length != 18) {
             return false;
         }
+        
         Vector pointA1 = new Vector(coordinates[0], coordinates[1], coordinates[2]);
         Vector pointB1 = new Vector(coordinates[3], coordinates[4], coordinates[5]);
         Vector pointC1 = new Vector(coordinates[6], coordinates[7], coordinates[8]);
@@ -17,6 +18,9 @@ public class TestLib {
         Triangle triangle1 = new Triangle(pointA1, pointB1, pointC1);
         Triangle triangle2 = new Triangle(pointA2, pointB2, pointC2);
 
-        return triangle1.areIntersected(triangle2);
+        if ((triangle1.correctTriangle()) && (triangle2.correctTriangle()))
+            return triangle1.areIntersected(triangle2);
+        else
+            return false;
     }
 }
