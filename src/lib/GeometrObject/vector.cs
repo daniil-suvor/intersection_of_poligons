@@ -3,6 +3,7 @@ namespace vector;
 static class Constants
 {
     public const double compareEpsilon = 1E-15;
+    static public Vector zeroVector = new Vector();
 }
 public class Vector {
     public Vector() : this(0, 0, 0) {}

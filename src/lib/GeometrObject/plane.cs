@@ -11,11 +11,11 @@ public class Plane {
         lineAC = new Line(vectorCB, pointC);
     }
     public bool correctPlane() {
-        return normalVector != new Vector();
+        return normalVector != Constants.zeroVector;
     }
 
     public bool isMatched(Plane checkPlane) {
-        return ((normalVector.vectorProd(checkPlane.normalVector) == new Vector()) && (this.pointOnPlane(checkPlane.basisPoint)));
+        return ((normalVector.vectorProd(checkPlane.normalVector) == Constants.zeroVector) && (this.pointOnPlane(checkPlane.basisPoint)));
     }
 
     public bool pointOnPlane(Vector point) {
@@ -46,7 +46,7 @@ public class Plane {
 
         intersectLine = new Line(lineGuideVector, new Vector());
 
-        if (new Vector() == lineGuideVector) {
+        if (lineGuideVector == Constants.zeroVector) {
             
             return false;
         }
