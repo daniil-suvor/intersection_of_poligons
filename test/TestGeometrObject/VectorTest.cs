@@ -2,136 +2,127 @@ namespace test;
 using vector;
 public class VectorTest
 {
-    [Fact]
-    public void VectorEqualTest()
+    class VectorCompareData : TheoryData<Vector, Vector, bool>
     {
-        Vector v1 = new Vector(2, 0, -2);
-        Vector v2 = new Vector(2, 0, -2);
-        bool actual = v1 == v2;
-        bool expected = true;
+        public VectorCompareData()
+        {
+            Add(new Vector(2, 0, -2), new Vector(2, 0, -2), true);
+            Add(new Vector(0, 0, 0), new Vector(), true);
+            Add(new Vector(-0.00000000072, 10, 0), new Vector(-0.00000000072, 10, 0), true);
+            Add(new Vector(83000, -12000, 57), new Vector(83000, -12000, 57), true);
+            Add(new Vector(0, 0, 0), new Vector(0, 0, -2), false);
+            Add(new Vector(3, 1E-12, 2), new Vector(3, 1E-13, 2), false);
+            Add(new Vector(-852015, -4562131, 4512.67845), new Vector(364451, 13544, -2534), false);
+        }
+    }
+    [Theory]
+    [ClassData(typeof(VectorCompareData))]
+    public void VectorCompareTest(Vector vec1, Vector vec2, bool expected)
+    {
+        bool actual = vec1 == vec2;
         Assert.Equal(actual, expected);
     }
-    [Fact]
-    public void VectorNotEqualTest()
+
+    class VectorNormaData : TheoryData<Vector, double>
     {
-        Vector v1 = new Vector(0, 0, 0);
-        Vector v2 = new Vector(0, 0, -2);
-        bool actual = v1 == v2;
-        bool expected = true;
-        Assert.NotEqual(actual, expected);
+        public VectorNormaData()
+        {
+            Add(new Vector(2, 0, -2), Math.Sqrt(8));
+            Add(new Vector(0, 0, 0), 0);
+            Add(new Vector(10, 10, 5), 15);
+        }
     }
-    [Fact]
-    public void VectorTwoDotsEqualTest()
+    [Theory]
+    [ClassData(typeof(VectorNormaData))]
+    public void VectorNormaTest(Vector vec, double expected)
     {
-        Vector v1 = new Vector(0, 10, -4, 0, 9, -5);
-        Vector v2 = new Vector(0, 5, -2, 0, 4, -3);
-        bool actual = v1 == v2;
-        bool expected = true;
+        double actual = vec.norma();
         Assert.Equal(actual, expected);
     }
-    [Fact]
-    public void VectorNormaTest()
+
+    class VectorCosData : TheoryData<Vector, Vector, double>
     {
-        Vector v1 = new Vector(4, 0, 3);
-        double actual = v1.norma();
-        double expected = 5;
+        public VectorCosData()
+        {
+            Add(new Vector(2, 0, -2), new Vector(-25, 0, 25), -1);
+            Add(new Vector(10, 0, 0), new Vector(17, 0, 17), Math.Cos(Math.PI/4.0));
+            Add(new Vector(3, 0, 0), new Vector(3, 4, 0), 0.6);
+            Add(new Vector(-11, -11, -11), new Vector(17, 17, 0), -Math.Sqrt(2.0/3.0));
+        }
+    }
+    [Theory]
+    [ClassData(typeof(VectorCosData))]
+    public void VectorCosTest(Vector vec1, Vector vec2, double expected)
+    {
+        double actual = vec1.cos(vec2);
+        Assert.True(Math.Abs(actual -expected) < Constants.compareEpsilon);
+    }
+
+    class VectorProdData : TheoryData<Vector, Vector, Vector>
+    {
+        public VectorProdData()
+        {
+            Add(new Vector(1, 0, 0), new Vector(0, 1, 0), new Vector(0, 0, 1));
+            Add(new Vector(1, 5, 6), new Vector(8, 3, 4), new Vector(2, 44, -37));
+            Add(new Vector(6, -7, 5), new Vector(-12, 14, -10), new Vector(0, 0, 0));
+        }
+    }
+    [Theory]
+    [ClassData(typeof(VectorProdData))]
+    public void VectorProdTest(Vector vec1, Vector vec2, Vector expected)
+    {
+        Vector actual = vec1.vectorProd(vec2);
         Assert.Equal(actual, expected);
     }
-    [Fact]
-    public void VectorZeroNormaTest()
+
+    class VectorSumData : TheoryData<Vector, Vector, Vector>
     {
-        Vector v1 = new Vector(0, 0, 0);
-        double actual = v1.norma();
-        double expected = 0;
+        public VectorSumData()
+        {
+            Add(new Vector(1, 0, 0), new Vector(0, 1, 0), new Vector(1, 1, 0));
+            Add(new Vector(-1, 5, -6), new Vector(8, 3, 4), new Vector(7, 8, -2));
+            Add(new Vector(), new Vector(-12, 14, -10), new Vector(-12, 14, -10));
+        }
+    }
+    [Theory]
+    [ClassData(typeof(VectorSumData))]
+    public void VectorSumTest(Vector vec1, Vector vec2, Vector expected)
+    {
+        Vector actual = vec1 + vec2;
         Assert.Equal(actual, expected);
     }
-    [Fact]
-    public void VectorCos180Test()
+
+    class VectorSubData : TheoryData<Vector, Vector, Vector>
     {
-        Vector v1 = new Vector(4, 0, 3);
-        Vector v2 = new Vector(-4, 0, -3);
-        double actual = v1.cos(v2);
-        double expected = -1;
+        public VectorSubData()
+        {
+            Add(new Vector(1, 10, -90), new Vector(7, -1, 0), new Vector(-6, 11, -90));
+            Add(new Vector(-1, 5, -6), new Vector(8, 3, 4), new Vector(-9, 2, -10));
+            Add(new Vector(), new Vector(-12, 14, -10), new Vector(12, -14, 10));
+        }
+    }
+    [Theory]
+    [ClassData(typeof(VectorSubData))]
+    public void VectorSubTest(Vector vec1, Vector vec2, Vector expected)
+    {
+        Vector actual = vec1 - vec2;
         Assert.Equal(actual, expected);
     }
-    [Fact]
-    public void VectorCos0Test()
+
+    class VectorConstantProdData : TheoryData<Vector, double, Vector>
     {
-        Vector v1 = new Vector(4, 9, 3);
-        Vector v2 = new Vector(20, 45, 15);
-        double actual = v1.cos(v2);
-        double expected = 1;
-        Assert.Equal(actual, expected);
+        public VectorConstantProdData()
+        {
+            Add(new Vector(1, 10, -90), 2.5, new Vector(2.5, 25, -225));
+            Add(new Vector(-1, 5, -6), -10, new Vector(10, -50, 60));
+            Add(new Vector(), 5, new Vector(0, 0, 0));
+        }
     }
-    [Fact]
-    public void VectorCos0_6Test()
+    [Theory]
+    [ClassData(typeof(VectorConstantProdData))]
+    public void VectorConstantProdTest(Vector vec, double constant, Vector expected)
     {
-        Vector v1 = new Vector(3, 0, 0);
-        Vector v2 = new Vector(3, 4, 0);
-        double actual = v1.cos(v2);
-        double expected = 0.6;
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void VectorProd()
-    {
-        Vector v1 = new Vector(1, 0, 0);
-        Vector v2 = new Vector(0, 1, 0);
-        Vector actual = v1.vectorProd(v2);
-        Vector expected = new Vector(0, 0, 1);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void VectorProd2()
-    {
-        Vector v1 = new Vector(1, 5, 6);
-        Vector v2 = new Vector(8, 3, 4);
-        Vector actual = v1.vectorProd(v2);
-        Vector expected = new Vector(2, 44, -37);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void CollinearityVectorProd()
-    {
-        Vector v1 = new Vector(6, -7, 5);
-        Vector v2 = new Vector(-12, 14, -10);
-        Vector actual = v1.vectorProd(v2);
-        Vector expected = new Vector(0, 0, 0);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void VectorSum()
-    {
-        Vector actual = new Vector(-1, 8, -7) + new Vector(4, 1, 0) + new Vector(3, -4, 1);
-        Vector expected = new Vector(6, 5, -6);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void VectorSub()
-    {
-        Vector actual = new Vector(-1, 8, -7) - new Vector(4, 1, 0) - new Vector(3, -4, 1);
-        Vector expected = new Vector(-8, 11, -8);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void VectorConstantProd()
-    {
-        Vector actual = new Vector(-1, 8, -7) * 3;
-        Vector expected = new Vector(-3, 24, -21);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void ConstantVectorProd()
-    {
-        Vector actual = -4 * new Vector(2, 0, -7);
-        Vector expected = new Vector(-8, 0, 28);
-        Assert.Equal(actual, expected);
-    }
-    [Fact]
-    public void DivProd()
-    {
-        Vector actual = new Vector(2, 0, -7)/2;
-        Vector expected = new Vector(1, 0, -3.5);
+        Vector actual = vec*constant;
         Assert.Equal(actual, expected);
     }
 }

@@ -3,12 +3,12 @@ using vector;
 using line;
 public class Plane {
     public Plane (Vector pointA, Vector pointB, Vector pointC) {
-        Vector vectorAB = pointB  - pointA;
-        Vector vectorCB = pointC  - pointA;
-        normalVector = vectorAB.vectorProd(vectorCB);
+        Vector vectorAB = pointB - pointA;
+        Vector vectorAC = pointC - pointA;
+        normalVector = vectorAB.vectorProd(vectorAC);
         basisPoint = pointA;
-        lineAB = new Line(vectorAB, pointB);
-        lineAC = new Line(vectorCB, pointC);
+        lineAB = new Line(pointA, pointB);
+        lineAC = new Line(pointA, pointC);
     }
     public bool correctPlane() {
         return normalVector != Constants.zeroVector;
@@ -44,7 +44,7 @@ public class Plane {
         Vector lineGuideVector;
         lineGuideVector = normalVector.vectorProd(checkPlane.normalVector);
 
-        intersectLine = new Line(lineGuideVector, new Vector());
+        intersectLine = new Line(Constants.zeroVector, Constants.zeroVector);
 
         if (lineGuideVector == Constants.zeroVector) {
             
@@ -56,7 +56,8 @@ public class Plane {
             (checkPlane.checkLineIntersected(lineAB, out lineBasisPoint)) ||
             (checkPlane.checkLineIntersected(lineAC, out lineBasisPoint))) {
 
-            intersectLine = new Line(lineGuideVector, lineBasisPoint);
+            intersectLine.GuideVector = lineGuideVector;
+            intersectLine.BasisPoint = lineBasisPoint;
             return true;
         }
 
@@ -64,6 +65,5 @@ public class Plane {
     }
     private Vector normalVector;
     private Vector basisPoint;
-    private Line lineAB;
-    private Line lineAC;
+    private Line lineAB, lineAC;
 }

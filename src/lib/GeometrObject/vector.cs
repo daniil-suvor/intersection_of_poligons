@@ -1,17 +1,15 @@
 namespace vector;
 
-static class Constants
+public static class Constants
 {
     public const double compareEpsilon = 1E-15;
+    public const int degreeRound = 15;
     static public Vector zeroVector = new Vector();
 }
 public class Vector {
     public Vector() : this(0, 0, 0) {}
-    public Vector(double x, double y, double z) : this(0, 0, 0, x, y, z) {}
-    public Vector(double x0, double y0, double z0, double x1, double y1, double z1) {
-        x = x1 - x0;
-        y = y1 - y0;
-        z = z1 - z0;
+    public Vector(double x, double y, double z) {
+        this.x = x; this.y = y; this.z = z;
     }
     public override bool Equals(object? obj) {
         if (obj == null)

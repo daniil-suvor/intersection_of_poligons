@@ -9,9 +9,9 @@ public class Triangle {
         this.pointB = pointB;
         this.pointC = pointC;
 
-        lineAB = new Line(pointB - pointA, pointA);
-        lineAC = new Line(pointC - pointA, pointB);
-        lineBC = new Line(pointC - pointB, pointC);
+        lineAB = new Line(pointA, pointB);
+        lineAC = new Line(pointA, pointC);
+        lineBC = new Line(pointB, pointC);
 
         basisPlane = new Plane(pointA, pointB, pointC);
     }
@@ -29,7 +29,7 @@ public class Triangle {
             return true;
         }
 
-        Line checkLine = new Line(point - pointA, pointA);
+        Line checkLine = new Line(pointA, point);
         
         Vector intersectPoint;
         if (checkLine.checkIntersected(lineBC, out intersectPoint)) {

@@ -2,13 +2,16 @@ namespace line;
 using vector;
 
 public class Line {
-    public Line(Vector guideVector, Vector basisPoint) {
-        this.guideVector = guideVector;
-        this.basisPoint = basisPoint;
+    public Line(Vector pointA, Vector pointB) {
+        this.pointA = pointA;
+        this.pointB = pointB;
+        guideVector = pointB - pointA;
+        basisPoint = pointA;
+        
     }
 
     public Vector getPoint(double t) {
-        return guideVector*t + basisPoint;
+        return (guideVector*t) + basisPoint;
     }
 
     public bool pointOnLine(Vector point) {
@@ -41,11 +44,14 @@ public class Line {
 
     public Vector GuideVector {
         get => guideVector;
+        set => guideVector = value;
     }
 
     public Vector BasisPoint {
         get => basisPoint;
+        set => basisPoint = value;
     }
     private Vector guideVector;
     private Vector basisPoint;
+    private Vector pointA, pointB;
 }

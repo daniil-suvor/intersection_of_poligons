@@ -3,32 +3,26 @@ using vector;
 using triangle;
 public class TriangleTest
 {
-    [Fact]
-    public void Test1() {
-        Vector pointA = new Vector(1, 0, 0);
-        Vector pointB = new Vector();
-        Vector pointC = new Vector(0, 0, 1);
-        Triangle trg = new Triangle(pointA, pointB, pointC);
-
-        Vector checkPoint = new Vector(0.1, 0, 0.1);
-
-        bool expected = true;
-        bool actual = trg.poinInTriangle(checkPoint);
-
-        Assert.Equal(expected, actual);
+    class PoinInTriangleData : TheoryData<Triangle, Vector, bool>
+    {
+        public PoinInTriangleData()
+        {
+            Add(new Triangle(new Vector(-37, 37, 37), new Vector(7, -5, 8), new Vector(12, -12, -12)),
+                new Vector(),
+                true);
+            Add(new Triangle(new Vector(0, 0, 0), new Vector(1, 0, 0), new Vector(0, 0, 1)),
+                new Vector(0.1, 0, 0.1),
+                true);
+            Add(new Triangle(new Vector(0, 0, 4), new Vector(8, 0, 0), new Vector(-2, 0, -8)),
+                new Vector(0.15, 0, 0.6),
+                true);           
+        }
     }
-    [Fact]
-    public void Test2() {
-        Vector pointA = new Vector(1, 0, 0);
-        Vector pointB = new Vector();
-        Vector pointC = new Vector(0, 0, 1);
-        Triangle trg = new Triangle(pointA, pointB, pointC);
-
-        Vector checkPoint = new Vector(0.5, 0, 0.5);
-
-        bool expected = true;
+    [Theory]
+    [ClassData(typeof(PoinInTriangleData))]
+    public void IntersectedPlaneTest(Triangle trg, Vector checkPoint, bool expected)
+    {
         bool actual = trg.poinInTriangle(checkPoint);
-
-        Assert.Equal(expected, actual);
+        Assert.Equal(actual, expected);
     }
 }
