@@ -2,14 +2,17 @@ namespace vector;
 
 public static class Constants
 {
-    public const double compareEpsilon = 1E-15;
-    public const int degreeRound = 15;
-    static public Vector zeroVector = new Vector();
+    public const double compareEpsilon = 1E-12;
 }
 public class Vector {
-    public Vector() : this(0, 0, 0) {}
     public Vector(double x, double y, double z) {
         this.x = x; this.y = y; this.z = z;
+    }
+
+    public bool isZero() {
+        return ((Math.Abs(x - 0) < Constants.compareEpsilon) && 
+                (Math.Abs(y - 0) < Constants.compareEpsilon) && 
+                (Math.Abs(z - 0) < Constants.compareEpsilon));
     }
     public override bool Equals(object? obj) {
         if (obj == null)
@@ -19,7 +22,7 @@ public class Vector {
         else
             return false;
     }
-    public override int GetHashCode() {
+    public override int GetHashCode() { // Error Hash to compile without warnings
         return (int)(x + y + z);
     }
     public override string ToString() {
@@ -52,7 +55,7 @@ public class Vector {
     }
 
     public static Vector operator - (Vector a) {
-        return new Vector() - a;
+        return -1*a;
     }
     
     public static Vector operator * (double k, Vector a) {

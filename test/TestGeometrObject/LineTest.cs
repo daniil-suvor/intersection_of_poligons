@@ -37,7 +37,7 @@ public class LineTest
     }
     [Theory]
     [ClassData(typeof(LineIntersectedData))]
-    public void LineIntersectedTest(Line line1, Line line2, bool expected)
+    public void LineIntersectedest(Line line1, Line line2, bool expected)
     {
         Vector intersectPoint;
         bool actual = line1.checkIntersected(line2, out intersectPoint);

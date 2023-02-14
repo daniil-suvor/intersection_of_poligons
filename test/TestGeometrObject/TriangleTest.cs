@@ -8,13 +8,13 @@ public class TriangleTest
         public PoinInTriangleData()
         {
             Add(new Triangle(new Vector(-37, 37, 37), new Vector(7, -5, 8), new Vector(12, -12, -12)),
-                new Vector(),
+                new Vector(0, 0, 0),
                 true);
             Add(new Triangle(new Vector(0, 0, 0), new Vector(1, 0, 0), new Vector(0, 0, 1)),
                 new Vector(0.1, 0, 0.1),
                 true);
-            Add(new Triangle(new Vector(0, 0, 4), new Vector(8, 0, 0), new Vector(-2, 0, -8)),
-                new Vector(0.15, 0, 0.6),
+            Add(new Triangle(new Vector(0, 0, 444), new Vector(99, 0, 0), new Vector(-222, 0, -85)),
+                new Vector(0.156, 0, 0.006),
                 true);           
         }
     }

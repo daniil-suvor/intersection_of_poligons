@@ -11,10 +11,10 @@ public class PlaneTest
             Add(new Plane(new Vector(2, 0, -2), new Vector(2, 0, -2), new Vector(1, -7, 8)), false);
             Add(new Plane(new Vector(2, 0, -2), new Vector(1, -7, 8), new Vector(2, 0, -2)), false);
             Add(new Plane(new Vector(1, -7, 8), new Vector(2, 0, -2), new Vector(2, 0, -2)), false);
-            Add(new Plane(new Vector(), new Vector(0, 0, 0), new Vector()), false);
+            Add(new Plane(new Vector(0, 0, 0), new Vector(0, 0, 0), new Vector(0, 0, 0)), false);
 
             Add(new Plane(new Vector(1, 1, 1), new Vector(10, 10, 10), new Vector(-1, 1, -1)), true);
-            Add(new Plane(new Vector(1, -81, 1), new Vector(), new Vector(-1, -1, 100)), true);
+            Add(new Plane(new Vector(1, -81, 1), new Vector(0, 0, 0), new Vector(-1, -1, 100)), true);
         }
     }
     [Theory]
@@ -29,13 +29,13 @@ public class PlaneTest
     {
         public MatchedPlaneData()
         {
-            Add(new Plane(new Vector(1, -81, 1), new Vector(), new Vector(-1, -1, 100)),
-                new Plane(new Vector(1, -81, 1), new Vector(), new Vector(-1, -1, 100)),
+            Add(new Plane(new Vector(1, -81, 1), new Vector(0, 0, 0), new Vector(-1, -1, 100)),
+                new Plane(new Vector(1, -81, 1), new Vector(0, 0, 0), new Vector(-1, -1, 100)),
                 true);
-            Add(new Plane(new Vector(1, 0, 0), new Vector(), new Vector(0, 0, 1)),
+            Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 0, 1)),
                 new Plane(new Vector(-7, 0, 1), new Vector(3, 0, 2), new Vector(-1, 0, 100)),
                 true);
-            Add(new Plane(new Vector(0, 1, 0), new Vector(), new Vector(0, 0, 1)),
+            Add(new Plane(new Vector(0, 1, 0), new Vector(0, 0, 0), new Vector(0, 0, 1)),
                 new Plane(new Vector(1, -7, 1), new Vector(1, 3, 2), new Vector(0, -1, 100)),
                 false);
         }
@@ -52,7 +52,7 @@ public class PlaneTest
     {
         public PointOnPlaneData()
         {
-            Add(new Plane(new Vector(0, 1, 0), new Vector(), new Vector(0, 0, 1)),
+            Add(new Plane(new Vector(0, 1, 0), new Vector(0, 0, 0), new Vector(0, 0, 1)),
                 new Vector(0, -709, 517),
                 true);
             Add(new Plane(new Vector(12, 1, 0), new Vector(12, 75, -78), new Vector(-78, 0, 12)),
@@ -62,13 +62,13 @@ public class PlaneTest
                 new Vector(-78, 1235, 25),
                 true);
             Add(new Plane(new Vector(-78, -78, -78), new Vector(78, 78, 78), new Vector(10, -58, -1)),
-                new Vector(),
+                new Vector(0, 0, 0),
                 true);
             Add(new Plane(new Vector(78, 1, 80), new Vector(-78, 1235, 25), new Vector(10, -58, -1)),
                 new Vector(78, 12, 2),
                 false);
             Add(new Plane(new Vector(-8, 11, 8), new Vector(15, 71, -25), new Vector(1, -5,  1)),
-                new Vector(),
+                new Vector(0, 0, 0),
                 false);
         }
     }
@@ -84,13 +84,13 @@ public class PlaneTest
     {
         public IntersectedLineData()
         {
-            Add(new Plane(new Vector(1, 0, 0), new Vector(), new Vector(0, 1, 0)),
-                new Line(new Vector(1, 0, 0),  new Vector()),
+            Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 1, 0)),
+                new Line(new Vector(1, 0, 0),  new Vector(0, 0, 0)),
                 false);
             Add(new Plane(new Vector(1, 9, 0), new Vector(-7, 5, 47), new Vector(0, -1, 0)),
-                new Line(new Vector(0, 76, 47), new Vector()),
+                new Line(new Vector(0, 76, 47), new Vector(0, 0, 0)),
                 false);
-            Add(new Plane(new Vector(1, 0, 0), new Vector(), new Vector(0, 2, 0)),
+            Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 2, 0)),
                 new Line(new Vector(0, 5, 0), new Vector(0, 5, 1)),
                 true);
             Add(new Plane(new Vector(1, 7, -9), new Vector(8, -4, 4), new Vector(2, 12, 0)),
@@ -113,7 +113,7 @@ public class PlaneTest
     {
         public IntersectedPlaneData()
         {
-            Add(new Plane(new Vector(1, 0, 0), new Vector(), new Vector(0, 0, 1)),
+            Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 0, 1)),
                 new Plane(new Vector(-7, 10, 1),new Vector(3, 0, 2), new Vector(-1, -8, 100)),
                 true);
             Add(new Plane(new Vector(1, 15, 85), new Vector(-1, -5, 97), new Vector(-4, 8, 41)),
