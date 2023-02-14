@@ -30,11 +30,11 @@ public class Vector {
     }
     public Vector(Vector a) : this(a.x, a.y, a.z) {}
 
-    public double scalarProd(Vector vec) {
+    public double scalarProd(in Vector vec) {
         return x*vec.x + y*vec.y + z*vec.z;
     }
 
-    public Vector vectorProd(Vector vec) {
+    public Vector vectorProd(in Vector vec) {
         return new Vector(y*vec.z - z*vec.y, -(x*vec.z - z*vec.x), x*vec.y - y*vec.x);
     }
 
@@ -42,41 +42,41 @@ public class Vector {
         return Math.Sqrt(this.scalarProd(this));
     }
 
-    public double cos(Vector vec) {
+    public double cos(in Vector vec) {
         return this.scalarProd(vec)/(this.norma()*vec.norma());
     }
     
-    public static Vector operator + (Vector a, Vector b) {
+    public static Vector operator + (in Vector a, in Vector b) {
         return new Vector(a.x + b.x, a.y + b.y, a.z + b.z);
     }
     
-    public static Vector operator - (Vector a, Vector b) {
+    public static Vector operator - (in Vector a, in Vector b) {
         return new Vector(a.x - b.x, a.y - b.y, a.z - b.z);
     }
 
-    public static Vector operator - (Vector a) {
+    public static Vector operator - (in Vector a) {
         return -1*a;
     }
     
-    public static Vector operator * (double k, Vector a) {
+    public static Vector operator * (double k, in Vector a) {
         return new Vector(a.x*k, a.y*k, a.z*k);
     }
     
-    public static Vector operator * (Vector a, double k) {
+    public static Vector operator * (in Vector a, double k) {
         return k*a;
     }
     
-    public static Vector operator / (Vector a, double k) {
+    public static Vector operator / (in Vector a, double k) {
         return a*(1/k);
     }
     
-    public static bool operator == (Vector a, Vector b) {
-        return ((Math.Abs(a.x - b.x) < Constants.compareEpsilon) && 
-                (Math.Abs(a.y - b.y) < Constants.compareEpsilon) && 
-                (Math.Abs(a.z - b.z) < Constants.compareEpsilon));
+    public static bool operator == (in Vector a, in Vector b) {
+        return ((Math.Abs(Math.Abs(a.x) - Math.Abs(b.x)) < Constants.compareEpsilon) && 
+                (Math.Abs(Math.Abs(a.y) - Math.Abs(b.y)) < Constants.compareEpsilon) && 
+                (Math.Abs(Math.Abs(a.z) - Math.Abs(b.z)) < Constants.compareEpsilon));
     }
     
-    public static bool operator != (Vector a, Vector b) {
+    public static bool operator != (in Vector a, in Vector b) {
         return !(a == b);
     }
 

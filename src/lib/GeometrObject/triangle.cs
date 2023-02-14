@@ -4,7 +4,7 @@ using line;
 using plane;
 
 public class Triangle {
-    public Triangle(Vector pointA, Vector pointB, Vector pointC) {
+    public Triangle(in Vector pointA, in Vector pointB, in Vector pointC) {
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
@@ -24,8 +24,8 @@ public class Triangle {
         return (pointB - pointA).vectorProd(pointC - pointA).norma()/2;
     }
 
-    public bool poinInTriangle(Vector point) {
-        if ((point == pointA) || (point == pointB) || (point == pointC) || (lineBC.pointOnLine(point))) {
+    public bool poinInTriangle(in Vector point) {
+        if ((point == pointA) || (point == pointB) || (point == pointC)) {
             return true;
         }
 
@@ -33,13 +33,14 @@ public class Triangle {
         
         Vector intersectPoint;
         if (checkLine.checkIntersected(lineBC, out intersectPoint)) {
-            if (((pointA - point).scalarProd(intersectPoint - point) < 0)) {
+            if (((pointA - point).scalarProd(intersectPoint - point) <= 0) &&
+                ((pointB - intersectPoint).scalarProd(pointC - intersectPoint) <= 0)) {
                 return true;
             }
         }
         return false;
     }
-    public List<Vector> findPointIntersected(Line checkLine) {
+    public List<Vector> findPointIntersected(in Line checkLine) {
         List<Vector> res = new List<Vector>();
         Vector point;
         if (lineAB.checkIntersected(checkLine, out point))
@@ -52,7 +53,7 @@ public class Triangle {
         return res;
     }
 
-    public bool areIntersected(Triangle checkTriangle) {
+    public bool areIntersected(in Triangle checkTriangle) {
         Line intersectLine;
         List<Vector> checkPoints = new List<Vector>();
 

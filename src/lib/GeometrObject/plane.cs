@@ -2,7 +2,7 @@ namespace plane;
 using vector;
 using line;
 public class Plane {
-    public Plane (Vector pointA, Vector pointB, Vector pointC) {
+    public Plane (in Vector pointA, in Vector pointB, in Vector pointC) {
         Vector vectorAB = pointB - pointA;
         Vector vectorAC = pointC - pointA;
         normalVector = vectorAB.vectorProd(vectorAC);
@@ -14,16 +14,16 @@ public class Plane {
         return !normalVector.isZero();
     }
 
-    public bool isMatched(Plane checkPlane) {
+    public bool isMatched(in Plane checkPlane) {
         return ((normalVector.vectorProd(checkPlane.normalVector).isZero()) && (this.pointOnPlane(checkPlane.basisPoint)));
     }
 
-    public bool pointOnPlane(Vector point) {
+    public bool pointOnPlane(in Vector point) {
         Vector checkVector = point - basisPoint;
         return Math.Abs(normalVector.scalarProd(checkVector)) < Constants.compareEpsilon;
     }
 
-    public bool checkLineIntersected(Line checkLine, out Vector intersectPoint) {
+    public bool checkLineIntersected(in Line checkLine, out Vector intersectPoint) {
         Vector lineBasisPoint = checkLine.BasisPoint;
         Vector lineGuideVector = checkLine.GuideVector;
 
@@ -39,7 +39,7 @@ public class Plane {
         return true;
     }
 
-    public bool checkPlaneIntersected(Plane checkPlane, out Line intersectLine) {
+    public bool checkPlaneIntersected(in Plane checkPlane, out Line intersectLine) {
         Vector lineBasisPoint;
         Vector lineGuideVector;
         lineGuideVector = normalVector.vectorProd(checkPlane.normalVector);
