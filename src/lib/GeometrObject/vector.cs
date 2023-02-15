@@ -4,7 +4,7 @@ public static class Constants
 {
     public const double compareEpsilon = 1E-12;
 }
-public class Vector {
+public class Vector : IFigure {
     public Vector(double x, double y, double z) {
         this.x = x; this.y = y; this.z = z;
     }
@@ -14,6 +14,14 @@ public class Vector {
                 (Math.Abs(y - 0) < Constants.compareEpsilon) && 
                 (Math.Abs(z - 0) < Constants.compareEpsilon));
     }
+
+    public bool areIntersected(Vector checkPoint) {
+        return this == checkPoint;
+    }
+    public bool areIntersected(IFigure obj) {
+        return obj.areIntersected(this);
+    }
+
     public override bool Equals(object? obj) {
         if (obj == null)
             return false;
