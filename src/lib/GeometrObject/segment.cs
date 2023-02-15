@@ -2,12 +2,14 @@ namespace segment;
 
 using line;
 using vector;
+using triangle;
 
 public class Segment : IFigure {
     public Segment(Vector pointA, Vector pointB) {
         basisLine = new Line(pointB - pointA, pointA);
         this.pointA = pointA;
         this.pointB = pointB;
+        length = (pointB - PointA).norma();
     }
 
     public bool isCorrect() {
@@ -19,16 +21,18 @@ public class Segment : IFigure {
         Vector vectorBCheck = pointCheck - pointB;
 
         return (pointCheck.areIntersected(pointA) || pointCheck.areIntersected(pointB)) ||
-               (basisLine.areIntersected(pointCheck)) && (vectorACheck.scalarProd(vectorBCheck) < 0);
+               ((basisLine.areIntersected(pointCheck)) && (vectorACheck.scalarProd(vectorBCheck) < 0));
     }
 
     public bool areIntersected(Segment checkSegment) {
         Vector incPoint;
         return  (checkSegment.areIntersected(pointA) || checkSegment.areIntersected(pointB)) ||
-                (basisLine.areIntersected(checkSegment.basisLine, out incPoint)) && 
-                (this.areIntersected(incPoint)) && (checkSegment.areIntersected(incPoint));
+                ((basisLine.areIntersected(checkSegment.basisLine, out incPoint)) && 
+                (this.areIntersected(incPoint)) && (checkSegment.areIntersected(incPoint)));
     }
-
+    public bool areIntersected(Triangle checkTriangle) {
+        return checkTriangle.areIntersected(this);
+    }
     public bool areIntersected(IFigure obj) {
         return obj.areIntersected(this);
     }
@@ -37,6 +41,15 @@ public class Segment : IFigure {
         get => basisLine;
     }
 
+    public Vector PointA {
+        get => pointA;
+    }
+
+    public double Length {
+        get => length;
+    }
+
     private Line basisLine;
     private Vector pointA, pointB;
+    double length;
 }

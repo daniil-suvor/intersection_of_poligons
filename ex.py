@@ -31,13 +31,13 @@ import numpy as np
 
 ax = a3.Axes3D(pl.figure())
 
-vtx = np.array([[0, 1, 0], [1, 0, 20], [10, 0, 0]])
+vtx = np.array([[0, 0, 0], [1, 0, 0], [10, 0, 0]])
 tri = a3.art3d.Poly3DCollection([vtx])
 tri.set_color(colors.rgb2hex(np.random.rand(3)))
 
 ax.add_collection3d(tri)
 
-vtx = np.array([[1, 2, 3], [-9, 1, 0], [-1, -2, -3]])
+vtx = np.array([[1, 2, 3], [-9, 1, -7], [5, 0, 7]])
 tri = a3.art3d.Poly3DCollection([vtx])
 tri.set_color(colors.rgb2hex(np.random.rand(3)))
 

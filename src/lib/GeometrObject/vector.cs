@@ -1,4 +1,6 @@
 namespace vector;
+using segment;
+using triangle;
 
 public static class Constants
 {
@@ -9,14 +11,15 @@ public class Vector : IFigure {
         this.x = x; this.y = y; this.z = z;
     }
 
-    public bool isZero() {
-        return ((Math.Abs(x - 0) < Constants.compareEpsilon) && 
-                (Math.Abs(y - 0) < Constants.compareEpsilon) && 
-                (Math.Abs(z - 0) < Constants.compareEpsilon));
-    }
-
     public bool areIntersected(Vector checkPoint) {
         return this == checkPoint;
+    }
+    public bool areIntersected(Segment checkSegment) {
+        return checkSegment.areIntersected(this);
+    }
+
+    public bool areIntersected(Triangle checkTriangle) {
+        return checkTriangle.areIntersected(this);
     }
     public bool areIntersected(IFigure obj) {
         return obj.areIntersected(this);
@@ -33,6 +36,13 @@ public class Vector : IFigure {
     public override int GetHashCode() { // Error Hash to compile without warnings
         return (int)(x + y + z);
     }
+
+     public bool isZero() {
+        return ((Math.Abs(x - 0) < Constants.compareEpsilon) && 
+                (Math.Abs(y - 0) < Constants.compareEpsilon) && 
+                (Math.Abs(z - 0) < Constants.compareEpsilon));
+    }
+    
     public override string ToString() {
         return $"{x}; {y}; {z}";
     }

@@ -10,9 +10,9 @@ public class Triangle : IFigure {
         this.pointB = pointB;
         this.pointC = pointC;
 
-        lineAB = new Segment(pointA, pointB);
-        lineAC = new Segment(pointA, pointC);
-        lineBC = new Segment(pointB, pointC);
+        segmentAB = new Segment(pointA, pointB);
+        segmentAC = new Segment(pointA, pointC);
+        segmentBC = new Segment(pointB, pointC);
 
         basisPlane = new Plane(pointA, pointB, pointC);
     }
@@ -25,60 +25,80 @@ public class Triangle : IFigure {
         return (pointB - pointA).vectorProd(pointC - pointA).norma()/2;
     }
 
-    public bool areIntersected(in Vector point) {
+    public bool areIntersected(Vector point) {
         if ((point.areIntersected(pointA)) || (point.areIntersected(pointB)) || (point.areIntersected(pointC))) {
             return true;
         }
 
-        Line checkLine = new Line(point - pointA, point);
+        Line checkLine = new Line(point - pointA, pointA);
         
         Vector intersectPoint;
-        if (checkLine.areIntersected(lineBC.BasisLine, out intersectPoint)) {
+        if (checkLine.areIntersected(segmentBC.BasisLine, out intersectPoint)) {
             Segment checkSegment = new Segment(pointA, intersectPoint);
-            return (lineBC.areIntersected(intersectPoint) && checkSegment.areIntersected(intersectPoint));
+            return (segmentBC.areIntersected(intersectPoint) && checkSegment.areIntersected(point));
         }
         return false;
     }
 
     public bool areIntersected(Segment checkSegment) {
+        
+        Vector intersectPoint;
+
+        if (this.areIntersected(checkSegment.PointA)) {
+            return true;
+        }
+
+        if (basisPlane.isMatched(checkSegment.BasisLine)) {
+            return this.findIntersected(checkSegment);
+        }
+        if (basisPlane.areIntersected(checkSegment.BasisLine, out intersectPoint)) {
+            return this.areIntersected(intersectPoint) && checkSegment.areIntersected(intersectPoint);
+        }
+
         return false;
     }
     
+    public bool findIntersected(in Segment checkLine) {
+        return (segmentAB.areIntersected(checkLine) ||
+                segmentAC.areIntersected(checkLine) ||
+                segmentBC.areIntersected(checkLine));
+    }
+
     public List<Vector> findPointIntersected(in Line checkLine) {
         List<Vector> res = new List<Vector>();
         Vector point;
-        if (lineAB.BasisLine.areIntersected(checkLine, out point))
+        if (segmentAB.BasisLine.areIntersected(checkLine, out point))
             res.Add(point);
-        if (lineAC.BasisLine.areIntersected(checkLine, out point))
+        if (segmentAC.BasisLine.areIntersected(checkLine, out point))
             res.Add(point);
-        if (lineBC.BasisLine.areIntersected(checkLine, out point))
+        if (segmentBC.BasisLine.areIntersected(checkLine, out point))
             res.Add(point);
         
         return res;
     }
 
-    
-
-    public bool areIntersected(in Triangle checkTriangle) {
+    public bool areIntersected(Triangle checkTriangle) {
         Line intersectLine;
-        List<Vector> checkPoints = new List<Vector>();
-
+        
         if ((this.areIntersected(checkTriangle.pointC)) || (checkTriangle.areIntersected(pointC))) {
             return true;
         }
 
         if (basisPlane.isMatched(checkTriangle.basisPlane)) {
-            checkPoints.AddRange(checkTriangle.findPointIntersected(lineAB.BasisLine));
-            checkPoints.AddRange(checkTriangle.findPointIntersected(lineAC.BasisLine));
-            checkPoints.AddRange(checkTriangle.findPointIntersected(lineBC.BasisLine));
-        } else if (basisPlane.areIntersected(checkTriangle.basisPlane, out intersectLine)) {
+            return (checkTriangle.findIntersected(segmentAB) ||
+                    checkTriangle.findIntersected(segmentAC) ||
+                    checkTriangle.findIntersected(segmentBC));
+        }
+        if (basisPlane.areIntersected(checkTriangle.basisPlane, out intersectLine)) {
+            List<Vector> checkPoints = new List<Vector>();
+
             checkPoints.AddRange(this.findPointIntersected(intersectLine));
             checkPoints.AddRange(checkTriangle.findPointIntersected(intersectLine));
-        }
-
-        foreach(Vector checkPoint in checkPoints) {
-            if (this.areIntersected(checkPoint) && checkTriangle.areIntersected(checkPoint))
-                return true;
+            
+            foreach(Vector checkPoint in checkPoints) {
+                if (this.areIntersected(checkPoint) && checkTriangle.areIntersected(checkPoint))
+                    return true;
+            }
         }
         return false;
     }
@@ -88,6 +108,6 @@ public class Triangle : IFigure {
     }
 
     private Vector pointA, pointB, pointC;
-    private Segment lineAB, lineAC, lineBC;
+    private Segment segmentAB, segmentAC, segmentBC;
     private Plane basisPlane;
 }

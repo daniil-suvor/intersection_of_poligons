@@ -1,7 +1,31 @@
 ﻿namespace lib;
 using vector;
 using triangle;
+using segment;
 public class TestLib {
+    static public IFigure getFigure(Vector pointA, Vector pointB, Vector pointC) {
+        Triangle checkTiangle = new Triangle(pointA, pointB, pointC);
+        if (checkTiangle.isCorrect()) {
+            return checkTiangle;
+        }
+
+        Segment lineAB = new Segment(pointA, pointB);
+        Segment lineAC = new Segment(pointA, pointC);
+        Segment lineBC = new Segment(pointB, pointC);
+
+        if (lineAB.isCorrect() || lineAC.isCorrect() || lineBC.isCorrect()) {
+            Segment maxSegment = lineAB;
+            if (lineAC.Length > maxSegment.Length) {
+                maxSegment = lineAC;
+            }
+            if (lineBC.Length > maxSegment.Length) {
+                maxSegment = lineBC;
+            }
+            return maxSegment;
+        }
+
+        return pointA;
+    }
     static public bool AreIntersected(double[] coordinates) {
         if (coordinates.Length != 18) {
             return false;
@@ -15,12 +39,10 @@ public class TestLib {
         Vector pointB2 = new Vector(coordinates[12], coordinates[13], coordinates[14]);
         Vector pointC2 = new Vector(coordinates[15], coordinates[16], coordinates[17]);
 
-        Triangle triangle1 = new Triangle(pointA1, pointB1, pointC1);
-        Triangle triangle2 = new Triangle(pointA2, pointB2, pointC2);
+        IFigure figure1 = getFigure(pointA1, pointB1, pointC1);
+        IFigure figure2 = getFigure(pointA2, pointB2, pointC2);
 
-        if ((triangle1.isCorrect()) && (triangle2.isCorrect()))
-            return triangle1.areIntersected(triangle2);
-        else
-            return false;
+        return figure1.areIntersected(figure2);
+        
     }
 }

@@ -84,12 +84,12 @@ public class PlaneTest
     {
         public IntersectedLineData()
         {
-            Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 1, 0)),
-                new Line(new Vector(0, 0, 0) - new Vector(1, 0, 0), new Vector(1, 0, 0)),
-                false);
             Add(new Plane(new Vector(1, 9, 0), new Vector(-7, 5, 47), new Vector(0, -1, 0)),
                 new Line(new Vector(0, 0, 0) - new Vector(0, 76, 47), new Vector(0, 76, 47)),
                 false);
+            Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 1, 0)),
+                new Line(new Vector(0, 0, 0) - new Vector(1, 0, 0), new Vector(1, 0, 0)),
+                true);
             Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 2, 0)),
                 new Line(new Vector(0, 5, 1) - new Vector(0, 5, 0), new Vector(0, 5, 0)),
                 true);
