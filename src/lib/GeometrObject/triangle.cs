@@ -9,30 +9,30 @@ public class Triangle {
         this.pointB = pointB;
         this.pointC = pointC;
 
-        lineAB = new Line(pointA, pointB);
-        lineAC = new Line(pointA, pointC);
-        lineBC = new Line(pointB, pointC);
+        lineAB = new Line(pointB - pointA, pointA);
+        lineAC = new Line(pointC - pointA, pointA);
+        lineBC = new Line(pointC - pointB, pointB);
 
         basisPlane = new Plane(pointA, pointB, pointC);
     }
 
-    public bool correctTriangle() {
-        return basisPlane.correctPlane();
+    public bool isCorrect() {
+        return basisPlane.isCorrect();
     }
 
     public double square() {
         return (pointB - pointA).vectorProd(pointC - pointA).norma()/2;
     }
 
-    public bool poinInTriangle(in Vector point) {
+    public bool areIntersected(in Vector point) {
         if ((point == pointA) || (point == pointB) || (point == pointC)) {
             return true;
         }
 
-        Line checkLine = new Line(pointA, point);
+        Line checkLine = new Line(point - pointA, point);
         
         Vector intersectPoint;
-        if (checkLine.checkIntersected(lineBC, out intersectPoint)) {
+        if (checkLine.areIntersected(lineBC, out intersectPoint)) {
             if (((pointA - point).scalarProd(intersectPoint - point) <= 0) &&
                 ((pointB - intersectPoint).scalarProd(pointC - intersectPoint) <= 0)) {
                 return true;
@@ -43,11 +43,11 @@ public class Triangle {
     public List<Vector> findPointIntersected(in Line checkLine) {
         List<Vector> res = new List<Vector>();
         Vector point;
-        if (lineAB.checkIntersected(checkLine, out point))
+        if (lineAB.areIntersected(checkLine, out point))
             res.Add(point);
-        if (lineAC.checkIntersected(checkLine, out point))
+        if (lineAC.areIntersected(checkLine, out point))
             res.Add(point);
-        if (lineBC.checkIntersected(checkLine, out point))
+        if (lineBC.areIntersected(checkLine, out point))
             res.Add(point);
         
         return res;
@@ -57,17 +57,21 @@ public class Triangle {
         Line intersectLine;
         List<Vector> checkPoints = new List<Vector>();
 
+        if ((this.areIntersected(checkTriangle.pointC)) || (checkTriangle.areIntersected(pointC))) {
+            return true;
+        }
+
         if (basisPlane.isMatched(checkTriangle.basisPlane)) {
             checkPoints.AddRange(checkTriangle.findPointIntersected(lineAB));
             checkPoints.AddRange(checkTriangle.findPointIntersected(lineAC));
             checkPoints.AddRange(checkTriangle.findPointIntersected(lineBC));
-        } else if (basisPlane.checkPlaneIntersected(checkTriangle.basisPlane, out intersectLine)) {
+        } else if (basisPlane.areIntersected(checkTriangle.basisPlane, out intersectLine)) {
             checkPoints.AddRange(this.findPointIntersected(intersectLine));
             checkPoints.AddRange(checkTriangle.findPointIntersected(intersectLine));
         }
 
         foreach(Vector checkPoint in checkPoints) {
-            if (this.poinInTriangle(checkPoint) && checkTriangle.poinInTriangle(checkPoint))
+            if (this.areIntersected(checkPoint) && checkTriangle.areIntersected(checkPoint))
                 return true;
         }
         return false;

@@ -7,23 +7,23 @@ public class Plane {
         Vector vectorAC = pointC - pointA;
         normalVector = vectorAB.vectorProd(vectorAC);
         basisPoint = pointA;
-        lineAB = new Line(pointA, pointB);
-        lineAC = new Line(pointA, pointC);
+        lineAB = new Line(vectorAB, pointA);
+        lineAC = new Line(vectorAC, pointC);
     }
-    public bool correctPlane() {
+    public bool isCorrect() {
         return !normalVector.isZero();
     }
 
     public bool isMatched(in Plane checkPlane) {
-        return ((normalVector.vectorProd(checkPlane.normalVector).isZero()) && (this.pointOnPlane(checkPlane.basisPoint)));
+        return ((normalVector.vectorProd(checkPlane.normalVector).isZero()) && (this.areIntersected(checkPlane.basisPoint)));
     }
 
-    public bool pointOnPlane(in Vector point) {
+    public bool areIntersected(in Vector point) {
         Vector checkVector = point - basisPoint;
         return Math.Abs(normalVector.scalarProd(checkVector)) < Constants.compareEpsilon;
     }
 
-    public bool checkLineIntersected(in Line checkLine, out Vector intersectPoint) {
+    public bool areIntersected(in Line checkLine, out Vector intersectPoint) {
         Vector lineBasisPoint = checkLine.BasisPoint;
         Vector lineGuideVector = checkLine.GuideVector;
 
@@ -39,7 +39,7 @@ public class Plane {
         return true;
     }
 
-    public bool checkPlaneIntersected(in Plane checkPlane, out Line intersectLine) {
+    public bool areIntersected(in Plane checkPlane, out Line intersectLine) {
         Vector lineBasisPoint;
         Vector lineGuideVector;
         lineGuideVector = normalVector.vectorProd(checkPlane.normalVector);
@@ -51,13 +51,12 @@ public class Plane {
             return false;
         }
 
-        if ((this.checkLineIntersected(checkPlane.lineAB, out lineBasisPoint)) ||
-            (this.checkLineIntersected(checkPlane.lineAC, out lineBasisPoint)) ||
-            (checkPlane.checkLineIntersected(lineAB, out lineBasisPoint)) ||
-            (checkPlane.checkLineIntersected(lineAC, out lineBasisPoint))) {
+        if ((this.areIntersected(checkPlane.lineAB, out lineBasisPoint)) ||
+            (this.areIntersected(checkPlane.lineAC, out lineBasisPoint)) ||
+            (checkPlane.areIntersected(lineAB, out lineBasisPoint)) ||
+            (checkPlane.areIntersected(lineAC, out lineBasisPoint))) {
 
-            intersectLine.GuideVector = lineGuideVector;
-            intersectLine.BasisPoint = lineBasisPoint;
+            intersectLine = new Line(lineGuideVector, lineBasisPoint);
             return true;
         }
 

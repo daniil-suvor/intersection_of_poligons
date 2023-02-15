@@ -18,7 +18,7 @@ public class TestLib {
         Triangle triangle1 = new Triangle(pointA1, pointB1, pointC1);
         Triangle triangle2 = new Triangle(pointA2, pointB2, pointC2);
 
-        if ((triangle1.correctTriangle()) && (triangle2.correctTriangle()))
+        if ((triangle1.isCorrect()) && (triangle2.isCorrect()))
             return triangle1.areIntersected(triangle2);
         else
             return false;

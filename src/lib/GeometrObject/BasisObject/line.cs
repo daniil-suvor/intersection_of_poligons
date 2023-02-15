@@ -2,24 +2,25 @@ namespace line;
 using vector;
 
 public class Line {
-    public Line(in Vector pointA, in Vector pointB) {
-        this.pointA = pointA;
-        this.pointB = pointB;
-        guideVector = pointB - pointA;
-        basisPoint = pointA;
-        
+    public Line(in Vector guideVector, in Vector basisPoint) {
+        this.basisPoint = basisPoint;
+        this.guideVector = guideVector;
     }
 
     public Vector getPoint(double t) {
         return (guideVector*t) + basisPoint;
     }
+    
+    public bool isCorrect() {
+        return !guideVector.isZero();
+    }
 
-    public bool pointOnLine(in Vector point) {
+    public bool areIntersected(in Vector point) {
         double t = guideVector.scalarProd(point - basisPoint)/guideVector.scalarProd(guideVector);
         return ((point - basisPoint) == t*guideVector);
     }
     
-    public bool checkIntersected(in Line checkLine, out Vector intersectPoint) {
+    public bool areIntersected(in Line checkLine, out Vector intersectPoint) {
         Vector subBasisPoint = checkLine.basisPoint - basisPoint;
         double a00 = guideVector.scalarProd(guideVector);
         double a01 = (-checkLine.guideVector).scalarProd(guideVector);
@@ -44,14 +45,11 @@ public class Line {
 
     public Vector GuideVector {
         get => guideVector;
-        set => guideVector = value;
     }
 
     public Vector BasisPoint {
         get => basisPoint;
-        set => basisPoint = value;
     }
     private Vector guideVector;
     private Vector basisPoint;
-    private Vector pointA, pointB;
 }

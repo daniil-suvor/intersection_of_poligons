@@ -22,7 +22,7 @@ public class TriangleTest
     [ClassData(typeof(PoinInTriangleData))]
     public void IntersectedPlaneTest(Triangle trg, Vector checkPoint, bool expected)
     {
-        bool actual = trg.poinInTriangle(checkPoint);
+        bool actual = trg.areIntersected(checkPoint);
         Assert.Equal(actual, expected);
     }
 }

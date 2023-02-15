@@ -21,7 +21,7 @@ public class PlaneTest
     [ClassData(typeof(CheckPlaneData))]
     public void CheckPlaneDataTest(Plane pl, bool expected)
     {
-        bool actual = pl.correctPlane();
+        bool actual = pl.isCorrect();
         Assert.Equal(actual, expected);
     }
     
@@ -76,7 +76,7 @@ public class PlaneTest
     [ClassData(typeof(PointOnPlaneData))]
     public void PointOnPlaneTest(Plane pl, Vector point, bool expected)
     {
-        bool actual = pl.pointOnPlane(point);
+        bool actual = pl.areIntersected(point);
         Assert.Equal(actual, expected);
     }
 
@@ -85,16 +85,16 @@ public class PlaneTest
         public IntersectedLineData()
         {
             Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 1, 0)),
-                new Line(new Vector(1, 0, 0),  new Vector(0, 0, 0)),
+                new Line(new Vector(0, 0, 0) - new Vector(1, 0, 0), new Vector(1, 0, 0)),
                 false);
             Add(new Plane(new Vector(1, 9, 0), new Vector(-7, 5, 47), new Vector(0, -1, 0)),
-                new Line(new Vector(0, 76, 47), new Vector(0, 0, 0)),
+                new Line(new Vector(0, 0, 0) - new Vector(0, 76, 47), new Vector(0, 76, 47)),
                 false);
             Add(new Plane(new Vector(1, 0, 0), new Vector(0, 0, 0), new Vector(0, 2, 0)),
-                new Line(new Vector(0, 5, 0), new Vector(0, 5, 1)),
+                new Line(new Vector(0, 5, 1) - new Vector(0, 5, 0), new Vector(0, 5, 0)),
                 true);
             Add(new Plane(new Vector(1, 7, -9), new Vector(8, -4, 4), new Vector(2, 12, 0)),
-                new Line(new Vector(8, -4, 4), new Vector(23, -7, 75)),
+                new Line(new Vector(23, -7, 75) - new Vector(8, -4, 4), new Vector(8, -4, 4)),
                 true);
             
         }
@@ -105,7 +105,7 @@ public class PlaneTest
     {
         Vector incPoint;
 
-        bool actual = pl.checkLineIntersected(lin, out incPoint) && pl.pointOnPlane(incPoint) && lin.pointOnLine(incPoint);
+        bool actual = pl.areIntersected(lin, out incPoint) && pl.areIntersected(incPoint) && lin.areIntersected(incPoint);
         Assert.Equal(actual, expected);
     }
 
@@ -126,9 +126,9 @@ public class PlaneTest
     public void IntersectedPlaneTest(Plane pl1, Plane pl2, bool expected)
     {
         Line incLine;
-        bool actual = (pl1.checkPlaneIntersected(pl2, out incLine) &&
-                       pl1.pointOnPlane(incLine.getPoint(80.1)) &&
-                       pl2.pointOnPlane(incLine.getPoint(-10.2))) ;
+        bool actual = (pl1.areIntersected(pl2, out incLine) &&
+                       pl1.areIntersected(incLine.getPoint(80.1)) &&
+                       pl2.areIntersected(incLine.getPoint(-10.2))) ;
         Assert.Equal(actual, expected);
     }
 }
