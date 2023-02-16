@@ -1,11 +1,7 @@
 namespace vector;
 using segment;
 using triangle;
-
-public static class Constants
-{
-    public const double compareEpsilon = 1E-12;
-}
+using compare;
 public class Vector : IFigure {
     public Vector(double x, double y, double z) {
         this.x = x; this.y = y; this.z = z;
@@ -38,9 +34,9 @@ public class Vector : IFigure {
     }
 
      public bool isZero() {
-        return ((Math.Abs(x - 0) < Constants.compareEpsilon) && 
-                (Math.Abs(y - 0) < Constants.compareEpsilon) && 
-                (Math.Abs(z - 0) < Constants.compareEpsilon));
+        return ((Compare.doubleCompare(x, 0)) && 
+                (Compare.doubleCompare(y, 0)) && 
+                (Compare.doubleCompare(z, 0)));
     }
     
     public override string ToString() {
@@ -50,6 +46,10 @@ public class Vector : IFigure {
 
     public double scalarProd(in Vector vec) {
         return x*vec.x + y*vec.y + z*vec.z;
+    }
+
+    public bool areOrthogonal(Vector vec) {
+        return Compare.doubleCompare(this.scalarProd(vec), 0);
     }
 
     public Vector vectorProd(in Vector vec) {
@@ -89,9 +89,9 @@ public class Vector : IFigure {
     }
     
     public static bool operator == (in Vector a, in Vector b) {
-        return ((Math.Abs(Math.Abs(a.x) - Math.Abs(b.x)) < Constants.compareEpsilon) && 
-                (Math.Abs(Math.Abs(a.y) - Math.Abs(b.y)) < Constants.compareEpsilon) && 
-                (Math.Abs(Math.Abs(a.z) - Math.Abs(b.z)) < Constants.compareEpsilon));
+        return ((Compare.doubleCompare(a.x, b.x)) && 
+                (Compare.doubleCompare(a.y, b.y)) && 
+                (Compare.doubleCompare(a.z, b.z)));
     }
     
     public static bool operator != (in Vector a, in Vector b) {

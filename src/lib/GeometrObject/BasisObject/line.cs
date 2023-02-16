@@ -1,5 +1,6 @@
 namespace line;
 using vector;
+using compare;
 
 public class Line {
     public Line(in Vector guideVector, in Vector basisPoint) {
@@ -31,7 +32,7 @@ public class Line {
         double b1 = subBasisPoint.scalarProd(-checkLine.guideVector);
 
         double s;
-        if (Math.Abs(a00*a11 - a10*a01) < Constants.compareEpsilon) {
+        if (Compare.doubleCompare((a00*a11 - a10*a01), 0)) {
             s = 1;
         } else {
             s = (b1*a00 - a10*b0)/(a11*a00 - a10*a01);

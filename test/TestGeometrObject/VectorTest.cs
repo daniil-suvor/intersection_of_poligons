@@ -1,5 +1,6 @@
 namespace test;
 using vector;
+using compare;
 public class VectorTest
 {
     class VectorCompareData : TheoryData<Vector, Vector, bool>
@@ -55,7 +56,7 @@ public class VectorTest
     public void VectorCosTest(Vector vec1, Vector vec2, double expected)
     {
         double actual = vec1.cos(vec2);
-        Assert.True(Math.Abs(actual -expected) < Constants.compareEpsilon);
+        Assert.True(Compare.doubleCompare(actual, expected));
     }
 
     class VectorProdData : TheoryData<Vector, Vector, Vector>

@@ -19,12 +19,12 @@ public class Plane {
     }
 
     public bool isMatched(in Line checkLine) {
-        return ((Math.Abs(normalVector.scalarProd(checkLine.GuideVector)) < Constants.compareEpsilon) && 
+        return ((normalVector.areOrthogonal(checkLine.GuideVector)) && 
                 (this.areIntersected(checkLine.BasisPoint)));
     }
     public bool areIntersected(in Vector point) {
         Vector checkVector = point - basisPoint;
-        return Math.Abs(normalVector.scalarProd(checkVector)) < Constants.compareEpsilon;
+        return normalVector.areOrthogonal(checkVector);
     }
 
     public bool areIntersected(in Line checkLine, out Vector intersectPoint) {
@@ -38,7 +38,7 @@ public class Plane {
             return true;
         }
 
-        if (Math.Abs(normalVector.scalarProd(lineGuideVector)) < Constants.compareEpsilon) {
+        if (normalVector.areOrthogonal(lineGuideVector)) {
             intersectPoint = new Vector(0, 0, 0);
             return false;
         }

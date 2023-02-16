@@ -43,6 +43,5 @@ public class TestLib {
         IFigure figure2 = getFigure(pointA2, pointB2, pointC2);
 
         return figure1.areIntersected(figure2);
-        
     }
 }
