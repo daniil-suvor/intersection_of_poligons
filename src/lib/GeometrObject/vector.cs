@@ -5,7 +5,7 @@ using triangle;
 using compare;
 
 public class Vector : IFigure {
-    public Vector(double x, double y, double z) {
+    public Vector(in double x, in double y, in double z) {
         this.x = x; this.y = y; this.z = z;
     }
 
@@ -31,11 +31,11 @@ public class Vector : IFigure {
         else
             return false;
     }
-    public override int GetHashCode() { // Error Hash to compile without warnings
+    public override int GetHashCode() { // Error Hash need for compile without warnings
         return (int)(x + y + z);
     }
 
-     public bool isZero() {
+    public bool isZero() {
         return ((Compare.doubleCompare(x, 0)) && 
                 (Compare.doubleCompare(y, 0)) && 
                 (Compare.doubleCompare(z, 0)));
