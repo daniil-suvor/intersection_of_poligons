@@ -1,6 +1,8 @@
 namespace test;
+
 using vector;
 using triangle;
+
 public class TriangleTest
 {
     class PoinInTriangleData : TheoryData<Triangle, Vector, bool>

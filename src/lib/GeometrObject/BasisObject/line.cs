@@ -1,4 +1,5 @@
 namespace line;
+
 using vector;
 using compare;
 
@@ -21,6 +22,7 @@ public class Line {
         return ((point - basisPoint) == t*guideVector);
     }
     
+    // finding the intersection point using the method of normal equations
     public bool areIntersected(in Line checkLine, out Vector intersectPoint) {
         Vector subBasisPoint = checkLine.basisPoint - basisPoint;
         double a00 = guideVector.scalarProd(guideVector);

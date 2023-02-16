@@ -1,4 +1,5 @@
 namespace test;
+
 using line;
 using vector;
 

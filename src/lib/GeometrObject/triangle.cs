@@ -1,4 +1,5 @@
 namespace triangle;
+
 using vector;
 using line;
 using plane;
@@ -25,7 +26,7 @@ public class Triangle : IFigure {
         return (pointB - pointA).vectorProd(pointC - pointA).norma()/2;
     }
 
-    public bool areIntersected(Vector point) {
+    public bool areIntersected(in Vector point) {
         if ((point.areIntersected(pointA)) || (point.areIntersected(pointB)) || (point.areIntersected(pointC))) {
             return true;
         }
@@ -40,7 +41,7 @@ public class Triangle : IFigure {
         return false;
     }
 
-    public bool areIntersected(Segment checkSegment) {
+    public bool areIntersected(in Segment checkSegment) {
         
         Vector intersectPoint;
 
@@ -77,7 +78,7 @@ public class Triangle : IFigure {
         return res;
     }
 
-    public bool areIntersected(Triangle checkTriangle) {
+    public bool areIntersected(in Triangle checkTriangle) {
         Line intersectLine;
         
         if ((this.areIntersected(checkTriangle.pointC)) || (checkTriangle.areIntersected(pointC))) {
@@ -103,7 +104,7 @@ public class Triangle : IFigure {
         return false;
     }
 
-    public bool areIntersected(IFigure obj) {
+    public bool areIntersected(in IFigure obj) {
         return obj.areIntersected(this);
     }
 

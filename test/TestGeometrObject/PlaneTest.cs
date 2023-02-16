@@ -1,7 +1,9 @@
 namespace test;
+
 using plane;
 using vector;
 using line;
+
 public class PlaneTest
 {
     class CheckPlaneData : TheoryData<Plane, bool>

@@ -1,23 +1,25 @@
 namespace vector;
+
 using segment;
 using triangle;
 using compare;
+
 public class Vector : IFigure {
     public Vector(double x, double y, double z) {
         this.x = x; this.y = y; this.z = z;
     }
 
-    public bool areIntersected(Vector checkPoint) {
+    public bool areIntersected(in Vector checkPoint) {
         return this == checkPoint;
     }
-    public bool areIntersected(Segment checkSegment) {
+    public bool areIntersected(in Segment checkSegment) {
         return checkSegment.areIntersected(this);
     }
 
-    public bool areIntersected(Triangle checkTriangle) {
+    public bool areIntersected(in Triangle checkTriangle) {
         return checkTriangle.areIntersected(this);
     }
-    public bool areIntersected(IFigure obj) {
+    public bool areIntersected(in IFigure obj) {
         return obj.areIntersected(this);
     }
 
@@ -48,7 +50,7 @@ public class Vector : IFigure {
         return x*vec.x + y*vec.y + z*vec.z;
     }
 
-    public bool areOrthogonal(Vector vec) {
+    public bool areOrthogonal(in Vector vec) {
         return Compare.doubleCompare(this.scalarProd(vec), 0);
     }
 

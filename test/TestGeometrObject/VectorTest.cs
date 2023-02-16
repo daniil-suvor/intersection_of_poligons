@@ -1,6 +1,8 @@
 namespace test;
+
 using vector;
 using compare;
+
 public class VectorTest
 {
     class VectorCompareData : TheoryData<Vector, Vector, bool>

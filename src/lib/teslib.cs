@@ -1,7 +1,9 @@
 ﻿namespace lib;
+
 using vector;
 using triangle;
 using segment;
+
 public class TestLib {
     static public IFigure getFigure(Vector pointA, Vector pointB, Vector pointC) {
         Triangle checkTiangle = new Triangle(pointA, pointB, pointC);

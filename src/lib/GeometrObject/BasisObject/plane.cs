@@ -1,6 +1,8 @@
 namespace plane;
+
 using vector;
 using line;
+
 public class Plane {
     public Plane (in Vector pointA, in Vector pointB, in Vector pointC) {
         Vector vectorAB = pointB - pointA;

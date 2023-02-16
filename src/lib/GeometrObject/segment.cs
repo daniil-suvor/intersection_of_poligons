@@ -5,7 +5,7 @@ using vector;
 using triangle;
 
 public class Segment : IFigure {
-    public Segment(Vector pointA, Vector pointB) {
+    public Segment(in Vector pointA, in Vector pointB) {
         basisLine = new Line(pointB - pointA, pointA);
         this.pointA = pointA;
         this.pointB = pointB;
@@ -16,7 +16,7 @@ public class Segment : IFigure {
         return basisLine.isCorrect();
     }
 
-    public bool areIntersected(Vector pointCheck) {
+    public bool areIntersected(in Vector pointCheck) {
         Vector vectorACheck = pointCheck - pointA;
         Vector vectorBCheck = pointCheck - pointB;
 
@@ -24,16 +24,16 @@ public class Segment : IFigure {
                ((basisLine.areIntersected(pointCheck)) && (vectorACheck.scalarProd(vectorBCheck) < 0));
     }
 
-    public bool areIntersected(Segment checkSegment) {
+    public bool areIntersected(in Segment checkSegment) {
         Vector incPoint;
         return  (checkSegment.areIntersected(pointA) || checkSegment.areIntersected(pointB)) ||
                 ((basisLine.areIntersected(checkSegment.basisLine, out incPoint)) && 
                 (this.areIntersected(incPoint)) && (checkSegment.areIntersected(incPoint)));
     }
-    public bool areIntersected(Triangle checkTriangle) {
+    public bool areIntersected(in Triangle checkTriangle) {
         return checkTriangle.areIntersected(this);
     }
-    public bool areIntersected(IFigure obj) {
+    public bool areIntersected(in IFigure obj) {
         return obj.areIntersected(this);
     }
 
