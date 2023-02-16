@@ -26,7 +26,8 @@ public class Segment : IFigure {
 
     public bool areIntersected(in Segment checkSegment) {
         Vector incPoint;
-        return  (checkSegment.areIntersected(pointA) || checkSegment.areIntersected(pointB)) ||
+        return  (checkSegment.areIntersected(pointA) || checkSegment.areIntersected(pointB) ||
+                 this.areIntersected(checkSegment.pointA) || this.areIntersected(checkSegment.pointB)) ||
                 ((basisLine.areIntersected(checkSegment.basisLine, out incPoint)) && 
                 (this.areIntersected(incPoint)) && (checkSegment.areIntersected(incPoint)));
     }

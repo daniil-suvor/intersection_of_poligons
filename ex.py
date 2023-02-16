@@ -31,17 +31,20 @@ import numpy as np
 
 ax = a3.Axes3D(pl.figure())
 
-vtx = np.array([[0, 0, 0], [1, 0, 0], [10, 0, 0]])
+dif_x = np.array([13, -7, 15])
+dif = np.array([dif_x, dif_x, dif_x])
+vtx = np.array([[2, 0, 0], [0, 2, 0], [0, 0, 2]]) + dif
 tri = a3.art3d.Poly3DCollection([vtx])
 tri.set_color(colors.rgb2hex(np.random.rand(3)))
+print(vtx)
 
 ax.add_collection3d(tri)
 
-vtx = np.array([[1, 2, 3], [-9, 1, -7], [5, 0, 7]])
+vtx = np.array([[3.6, 3.6, -5.2], [-5.2, 3.6, 3.6], [0.5, 1, 0.5]]) + dif
 tri = a3.art3d.Poly3DCollection([vtx])
 tri.set_color(colors.rgb2hex(np.random.rand(3)))
-
+print(vtx)
 ax.add_collection3d(tri)
 
-pl.scatter([0.1], [0], [0.1])
+# pl.scatter([0.1], [0], [0.1])
 pl.show()

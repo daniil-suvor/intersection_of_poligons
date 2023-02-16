@@ -59,10 +59,10 @@ public class Triangle : IFigure {
         return false;
     }
     
-    public bool findIntersected(in Segment checkLine) {
-        return (segmentAB.areIntersected(checkLine) ||
-                segmentAC.areIntersected(checkLine) ||
-                segmentBC.areIntersected(checkLine));
+    public bool findIntersected(in Segment checkSegment) {
+        return (segmentAB.areIntersected(checkSegment) ||
+                segmentAC.areIntersected(checkSegment) ||
+                segmentBC.areIntersected(checkSegment));
     }
 
     public List<Vector> findPointIntersected(in Line checkLine) {
