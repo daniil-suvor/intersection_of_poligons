@@ -9,7 +9,7 @@ public class Line {
         this.guideVector = guideVector;
     }
 
-    public Vector getPoint(double t) {
+    public Vector getPoint(in double t) {
         return (guideVector*t) + basisPoint;
     }
     

@@ -5,7 +5,7 @@ using line;
 using plane;
 using segment;
 
-public class Triangle : IFigure {
+public class Triangle : IPoligon {
     public Triangle(in Vector pointA, in Vector pointB, in Vector pointC) {
         this.pointA = pointA;
         this.pointB = pointB;
@@ -100,7 +100,7 @@ public class Triangle : IFigure {
         return false;
     }
 
-    public bool areIntersected(in IFigure obj) {
+    public bool areIntersected(in IPoligon obj) {
         return obj.areIntersected(this);
     }
 

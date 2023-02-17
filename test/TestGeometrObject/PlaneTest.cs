@@ -119,7 +119,7 @@ public class PlaneTest
                 new Plane(new Vector(-7, 10, 1),new Vector(3, 0, 2), new Vector(-1, -8, 100)),
                 true);
             Add(new Plane(new Vector(1, 15, 85), new Vector(-1, -5, 97), new Vector(-4, 8, 41)),
-                new Plane(new Vector(-4.0000007, 8.0000007, 41.0000007), new Vector(1.0000007, 15.0000007, 85.0000007), new Vector(-1.0000007, -5.0000007, 97.0000007)),
+                new Plane(new Vector(-4 + 0.0000007, 8 + 0.0000007, 41 + 0.0000007), new Vector(1 + 0.0000007, 15 +0.0000007, 85 +0.0000007), new Vector(-1 + 0.0000007, -5 + 0.0000007, 97 + 0.0000007)),
                 false);
         }
     }
