@@ -1,12 +1,10 @@
-﻿using vector;
+﻿using lib;
 class Program
 {
     static void Main(string[] args)
     {
-        Vector v1 = new Vector(2, 2, 2);
-        Vector v2 = new Vector(1, 2, 3);
-        Vector v3 =  new Vector(1, 0, -1);
-        Vector v4 = (v2 + v3);
-        Console.WriteLine(v4);
+        double[] coordinates = {-27, 17, -13, -27, 15, -11, -25, 15, -13, -25, 8, -13, -14, 13, -4, -27, 15, -11};
+        bool result = TestLib.AreIntersected(coordinates);
+        Console.WriteLine(result);
     }
 }
