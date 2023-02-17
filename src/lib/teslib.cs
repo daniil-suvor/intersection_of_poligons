@@ -28,7 +28,7 @@ public class TestLib {
 
         return pointA;
     }
-    static public bool AreIntersected(in double[] coordinates) {
+    static public bool AreIntersected(double[] coordinates) {
         if (coordinates.Length != 18) {
             return false;
         }
