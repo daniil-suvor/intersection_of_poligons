@@ -22,10 +22,6 @@ public class Triangle : IFigure {
         return basisPlane.isCorrect();
     }
 
-    public double square() {
-        return (pointB - pointA).vectorProd(pointC - pointA).norma()/2;
-    }
-
     public bool areIntersected(in Vector point) {
         if ((point.areIntersected(pointA)) || (point.areIntersected(pointB)) || (point.areIntersected(pointC))) {
             return true;

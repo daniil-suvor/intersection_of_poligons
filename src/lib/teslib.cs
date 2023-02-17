@@ -28,11 +28,11 @@ public class TestLib {
 
         return pointA;
     }
-    static public bool AreIntersected(double[] coordinates) {
-        if (coordinates.Length != 18) {
+    static public bool AreIntersected(double[] coordinatesDouble) {
+        if (coordinatesDouble.Length != 18) {
             return false;
         }
-        
+        decimal[] coordinates = Array.ConvertAll(coordinatesDouble, x => System.Convert.ToDecimal(x));
         Vector pointA1 = new Vector(coordinates[0], coordinates[1], coordinates[2]);
         Vector pointB1 = new Vector(coordinates[3], coordinates[4], coordinates[5]);
         Vector pointC1 = new Vector(coordinates[6], coordinates[7], coordinates[8]);

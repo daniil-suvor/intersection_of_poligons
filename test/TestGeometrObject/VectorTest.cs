@@ -11,11 +11,11 @@ public class VectorTest
         {
             Add(new Vector(2, 0, -2), new Vector(2, 0, -2), true);
             Add(new Vector(0, 0, 0), new Vector(0, 0, 0), true);
-            Add(new Vector(-0.00000000072, 10, 0), new Vector(-0.00000000072, 10, 0), true);
+            Add(new Vector(-0.00000000072m, 10, 0), new Vector(-0.00000000072m, 10, 0), true);
             Add(new Vector(83000, -12000, 57), new Vector(83000, -12000, 57), true);
             Add(new Vector(0, 0, 0), new Vector(0, 0, -2), false);
-            Add(new Vector(3, 1E-9, 2), new Vector(3, 1E-10, 2), false);
-            Add(new Vector(-852015, -4562131, 4512.67845), new Vector(364451, 13544, -2534), false);
+            Add(new Vector(3, 1E-9m, 2), new Vector(3, 1E-10m, 2), false);
+            Add(new Vector(-852015, -4562131, 4512.67845m), new Vector(364451, 13544, -2534), false);
         }
     }
     [Theory]
@@ -24,41 +24,6 @@ public class VectorTest
     {
         bool actual = vec1 == vec2;
         Assert.Equal(actual, expected);
-    }
-
-    class VectorNormaData : TheoryData<Vector, double>
-    {
-        public VectorNormaData()
-        {
-            Add(new Vector(2, 0, -2), Math.Sqrt(8));
-            Add(new Vector(0, 0, 0), 0);
-            Add(new Vector(10, 10, 5), 15);
-        }
-    }
-    [Theory]
-    [ClassData(typeof(VectorNormaData))]
-    public void VectorNormaTest(Vector vec, double expected)
-    {
-        double actual = vec.norma();
-        Assert.Equal(actual, expected);
-    }
-
-    class VectorCosData : TheoryData<Vector, Vector, double>
-    {
-        public VectorCosData()
-        {
-            Add(new Vector(2, 0, -2), new Vector(-25, 0, 25), -1);
-            Add(new Vector(10, 0, 0), new Vector(17, 0, 17), Math.Cos(Math.PI/4.0));
-            Add(new Vector(3, 0, 0), new Vector(3, 4, 0), 0.6);
-            Add(new Vector(-11, -11, -11), new Vector(17, 17, 0), -Math.Sqrt(2.0/3.0));
-        }
-    }
-    [Theory]
-    [ClassData(typeof(VectorCosData))]
-    public void VectorCosTest(Vector vec1, Vector vec2, double expected)
-    {
-        double actual = vec1.cos(vec2);
-        Assert.True(Compare.doubleCompare(actual, expected));
     }
 
     class VectorProdData : TheoryData<Vector, Vector, Vector>
@@ -112,20 +77,20 @@ public class VectorTest
         Assert.Equal(actual, expected);
     }
 
-    class VectorConstantProdData : TheoryData<Vector, double, Vector>
+    class VectorConstantProdData : TheoryData<Vector, decimal, Vector>
     {
         public VectorConstantProdData()
         {
-            Add(new Vector(1, 10, -90), 2.5, new Vector(2.5, 25, -225));
+            Add(new Vector(1, 10, -90), 2.5m, new Vector(2.5m, 25, -225));
             Add(new Vector(-1, 5, -6), -10, new Vector(10, -50, 60));
             Add(new Vector(0, 0, 0), 5, new Vector(0, 0, 0));
         }
     }
     [Theory]
     [ClassData(typeof(VectorConstantProdData))]
-    public void VectorConstantProdTest(Vector vec, double constant, Vector expected)
+    public void VectorConstantProdTest(Vector vec, decimal constant, Vector expected)
     {
         Vector actual = vec*constant;
-        Assert.Equal(actual, expected);
+        Assert.Equal(expected, actual);
     }
 }

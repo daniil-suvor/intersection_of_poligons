@@ -9,7 +9,7 @@ public class Segment : IFigure {
         basisLine = new Line(pointB - pointA, pointA);
         this.pointA = pointA;
         this.pointB = pointB;
-        length = (pointB - PointA).norma();
+        length = (pointB - PointA).scalarProd(pointB - PointA);
     }
 
     public bool isCorrect() {
@@ -46,11 +46,11 @@ public class Segment : IFigure {
         get => pointA;
     }
 
-    public double Length {
+    public decimal Length {
         get => length;
     }
 
     private Line basisLine;
     private Vector pointA, pointB;
-    double length;
+    decimal length;
 }

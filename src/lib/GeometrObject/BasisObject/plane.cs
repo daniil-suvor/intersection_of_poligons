@@ -45,7 +45,7 @@ public class Plane {
             return false;
         }
         
-        double t = -(normalVector.scalarProd(subBasisPoint) / normalVector.scalarProd(lineGuideVector));
+        decimal t = -(normalVector.scalarProd(subBasisPoint) / normalVector.scalarProd(lineGuideVector));
         intersectPoint = checkLine.getPoint(t);
         return true;
     }
@@ -55,10 +55,8 @@ public class Plane {
         Vector lineGuideVector;
         lineGuideVector = normalVector.vectorProd(checkPlane.normalVector);
 
-        intersectLine = new Line(new Vector(0, 0, 0), new Vector(0, 0, 0));
-
         if (lineGuideVector.isZero()) {
-            
+            intersectLine = new Line(new Vector(0, 0, 0), new Vector(0, 0, 0));
             return false;
         }
 
@@ -71,6 +69,7 @@ public class Plane {
             return true;
         }
 
+        intersectLine = new Line(new Vector(0, 0, 0), new Vector(0, 0, 0));
         return false;
     }
     private Vector normalVector;
