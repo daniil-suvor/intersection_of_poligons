@@ -5,7 +5,7 @@ using triangle;
 using segment;
 
 public class TestLib {
-    static public IFigure getFigure(Vector pointA, Vector pointB, Vector pointC) {
+    static public IPoligon getPoligon(Vector pointA, Vector pointB, Vector pointC) {
         Triangle checkTiangle = new Triangle(pointA, pointB, pointC);
         if (checkTiangle.isCorrect()) {
             return checkTiangle;
@@ -41,8 +41,8 @@ public class TestLib {
         Vector pointB2 = new Vector(coordinates[12], coordinates[13], coordinates[14]);
         Vector pointC2 = new Vector(coordinates[15], coordinates[16], coordinates[17]);
 
-        IFigure figure1 = getFigure(pointA1, pointB1, pointC1);
-        IFigure figure2 = getFigure(pointA2, pointB2, pointC2);
+        IPoligon figure1 = getPoligon(pointA1, pointB1, pointC1);
+        IPoligon figure2 = getPoligon(pointA2, pointB2, pointC2);
 
         return figure1.areIntersected(figure2);
     }

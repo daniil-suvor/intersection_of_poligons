@@ -4,7 +4,7 @@ using line;
 using vector;
 using triangle;
 
-public class Segment : IFigure {
+public class Segment : IPoligon {
     public Segment(in Vector pointA, in Vector pointB) {
         basisLine = new Line(pointB - pointA, pointA);
         this.pointA = pointA;
@@ -34,7 +34,7 @@ public class Segment : IFigure {
     public bool areIntersected(in Triangle checkTriangle) {
         return checkTriangle.areIntersected(this);
     }
-    public bool areIntersected(in IFigure obj) {
+    public bool areIntersected(in IPoligon obj) {
         return obj.areIntersected(this);
     }
 

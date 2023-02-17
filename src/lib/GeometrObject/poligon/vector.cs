@@ -4,7 +4,7 @@ using segment;
 using triangle;
 using compare;
 
-public class Vector : IFigure {
+public class Vector : IPoligon {
     public Vector(in decimal x, in decimal y, in decimal z) {
         this.x = x; this.y = y; this.z = z;
     }
@@ -19,7 +19,7 @@ public class Vector : IFigure {
     public bool areIntersected(in Triangle checkTriangle) {
         return checkTriangle.areIntersected(this);
     }
-    public bool areIntersected(in IFigure obj) {
+    public bool areIntersected(in IPoligon obj) {
         return obj.areIntersected(this);
     }
 
